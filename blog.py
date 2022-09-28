@@ -45,10 +45,11 @@ st.title("DIT IS EEN TEST")
 # The CSV files are encoded, and we'll use the chardet library to discover what type of encoding it is.
 # After which we'll use the `encoding parameter` of Pandas to properly load the CSV file.
 
-# In[167]:
+# In[4]:
 
 
 # Import the needed library
+get_ipython().system('pip install chardet')
 import chardet
 
 # Create a dict with file paths
