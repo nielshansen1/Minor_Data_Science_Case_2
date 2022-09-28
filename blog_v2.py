@@ -256,7 +256,7 @@ st_netflix_df = st.dataframe(netflix_df)
 st.text("PLOTTEST")
 
 
-# In[ ]:
+# In[22]:
 
 
 import plotly.express as px
@@ -266,4 +266,10 @@ fig.update_layout(width=1000, height=1000)
 
 
 fig.show()
+
+
+# In[ ]:
+
+
+
 
