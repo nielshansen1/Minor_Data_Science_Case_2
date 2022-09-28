@@ -259,6 +259,7 @@ st.text("PLOTTEST")
 # In[ ]:
 
 
+import plotly.express as px
 fig = px.bar(netflix_df , x='Genre'  , y='IMDB Score')
 fig.update_xaxes(rangeslider_visible=True)
 fig.update_layout(width=1000, height=1000)
