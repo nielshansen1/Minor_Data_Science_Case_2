@@ -19,7 +19,7 @@ st.title("The effect of Netflix movie IMDB scores on Netflix' stock")
 # In[27]:
 
 
-st.text_area("Inleiding",
+st.text_area("Kutzooi",
             '''For our project we want to merge the following three datasets:
 
             - Netflix Originals Movies with IMDB scores 
