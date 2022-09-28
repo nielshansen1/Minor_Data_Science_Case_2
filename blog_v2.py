@@ -1,6 +1,43 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# In[19]:
+
+
+#install the Streamlit library and import it
+#!pip install streamlit
+import streamlit as st
+
+
+# In[26]:
+
+
+# Titel van de app
+st.title("The effect of Netflix movie IMDB scores on Netflix' stock")
+
+
+# In[27]:
+
+
+st.text_area("Inleiding",
+            '''For our project we want to merge the following three datasets:
+
+            - Netflix Originals Movies with IMDB scores 
+
+            - General Netflix Series / Movies data  (From this we want 
+            to add the rating column to our Dataframe)
+
+            - Netflix Stockprices 
+
+            With the merged Dataframe we'll do extensive data analysis 
+            with help from Pandas for data manipulation and Plotly to make
+            interactive visualisations.
+            Our goal is to discover if there is any corralation between
+            the different features in this dataset. Examples of this can
+            be corralation with movie releases and stock prices, IMDB scores
+            and stock prices, rating and IMDB score. ''')
+
+
 # ## Blog Assignment
 # 
 # For our project we want to merge the following three datasets:
@@ -230,33 +267,14 @@ netflix_df.head()
 
 # ## Streamlit 
 
-# In[19]:
-
-
-#install the Streamlit library and import it
-#!pip install streamlit
-import streamlit as st
-
-
-# In[20]:
-
-
-st.title("DIT IS EEN TEST")
-
-
 # In[21]:
 
 
+# Maak een streamlit dataframe zodat hij weergeven wordt op de app
 st_netflix_df = st.dataframe(netflix_df)
 
 
-# In[ ]:
-
-
-st.text("PLOTTEST")
-
-
-# In[22]:
+# In[24]:
 
 
 import plotly.express as px
