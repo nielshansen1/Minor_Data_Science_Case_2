@@ -25,7 +25,7 @@
 
 
 # install the Kaggle library 
-get_ipython().system('pip install kaggle')
+#get_ipython().system('pip install kaggle')
 
 
 # Kaggle requires that the authentication key is present on our device ( using the following path: ~/.kaggle/kaggle.json), so we'll have to make a directory before we can proceed any futher
