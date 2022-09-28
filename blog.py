@@ -49,7 +49,7 @@ st.title("DIT IS EEN TEST")
 
 
 # Import the needed library
-get_ipython().system('pip install chardet')
+#get_ipython().system('pip install chardet')
 import chardet
 
 # Create a dict with file paths
