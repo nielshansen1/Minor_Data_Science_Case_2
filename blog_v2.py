@@ -34,45 +34,45 @@
 
 
 # Try to import the Kaggle library. Before proceeding create the directory specified below, and place the kaggle.json there
-import kaggle
+#import kaggle
 
 
 # In[3]:
 
 
 # Try to import the Kaggle library again
-import kaggle
+#import kaggle
 
 
 # In[4]:
 
 
 # Import the Kaggle API from the Kaggle library
-from kaggle.api.kaggle_api_extended import KaggleApi
+#from kaggle.api.kaggle_api_extended import KaggleApi
 
 
 # In[5]:
 
 
 # instantiate the API, then authenticate (uses the kaggle.json for login credentials)
-api = KaggleApi()
-api.authenticate()
+#api = KaggleApi()
+#api.authenticate()
 
-print("Succesfully connected to the Kaggle API!")
+#print("Succesfully connected to the Kaggle API!")
 
 
 # In[6]:
 
 
 # Use the Kaggle API to download the datasets we're using during the project
-api.dataset_download_file("luiscorter/netflix-original-films-imdb-scores",
-file_name="NetflixOriginals.csv")
+#api.dataset_download_file("luiscorter/netflix-original-films-imdb-scores",
+#file_name="NetflixOriginals.csv")
 
-api.dataset_download_file("ariyoomotade/netflix-data-cleaning-analysis-and-visualization",
-file_name="netflix1.csv")
+#api.dataset_download_file("ariyoomotade/netflix-data-cleaning-analysis-and-visualization",
+#file_name="netflix1.csv")
 
-api.dataset_download_file("akpmpr/updated-netflix-stock-price-all-time",
-file_name="netflix.csv")
+#api.dataset_download_file("akpmpr/updated-netflix-stock-price-all-time",
+#file_name="netflix.csv")
 
 
 # ### Dealing with encoded CSV files
