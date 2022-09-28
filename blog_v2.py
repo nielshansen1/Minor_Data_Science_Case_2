@@ -265,7 +265,7 @@ fig.update_xaxes(rangeslider_visible=True)
 fig.update_layout(width=1000, height=1000)
 
 
-fig.show()
+st.plotly_chart(fig)
 
 
 # In[ ]:
