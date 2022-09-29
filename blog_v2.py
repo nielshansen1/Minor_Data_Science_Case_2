@@ -334,13 +334,13 @@ st.code(code, language='python')
 st.header('Dealing with encoded CSV files')
 
 
-# In[65]:
+# In[66]:
 
 
-st.text("Before we can proceed with loading the CSV files with Pandas there is one more step "
-        "we need to take. The CSV files are encoded, and we will use the chardet library to "
-        "discover what type of encoding it is. After which we will use the encoding parameter "
-        "of Pandas to properly load the CSV file.")
+st.text('''Before we can proceed with loading the CSV files with Pandas there is one more step
+        we need to take. The CSV files are encoded, and we will use the chardet library to
+        discover what type of encoding it is. After which we will use the encoding parameter
+        of Pandas to properly load the CSV file.''')
 
 
 # In[62]:
