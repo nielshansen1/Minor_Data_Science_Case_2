@@ -234,7 +234,6 @@ netflix_df.head()
 
 
 #install the Streamlit library and import it
-#!pip install streamlit
 import streamlit as st
 
 
@@ -423,8 +422,6 @@ fig.show()
 
 # In[54]:
 
-
-#!pip install streamlit-aggrid
 
 from st_aggrid import AgGrid, GridUpdateMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
