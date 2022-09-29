@@ -238,14 +238,14 @@ netflix_df.head()
 import streamlit as st
 
 
-# In[26]:
+# In[20]:
 
 
 # Titel van de app
 st.title("The effect of Netflix movie IMDB scores on Netflix' stock")
 
 
-# In[27]:
+# In[21]:
 
 
 st.text_area("Inleiding",
@@ -267,23 +267,112 @@ st.text_area("Inleiding",
             and stock prices, rating and IMDB score. ''', )
 
 
-# In[21]:
+# In[22]:
 
 
 # Maak een streamlit dataframe zodat hij weergeven wordt op de app
 st_netflix_df = st.dataframe(netflix_df)
 
 
-# In[24]:
+# In[32]:
 
 
 import plotly.express as px
-fig = px.bar(netflix_df , x='Genre'  , y='IMDB Score')
+fig = px.bar(netflix_df , x='Genre')
 fig.update_xaxes(rangeslider_visible=True)
 fig.update_layout(width=1000, height=1000)
 
 
 st.plotly_chart(fig)
+fig.show()
+
+
+# In[26]:
+
+
+# Create a exchange rate difference column, to with the difference between the High and Low points of the day
+netflix_df["Daily exchange rate difference"] = netflix_df["Open"] - netflix_df["Close"]
+
+# Show the first 5 rows
+netflix_df.head()
+
+
+# In[31]:
+
+
+fig = px.line(netflix_df, 
+              x="Date", 
+              y="Daily exchange rate difference", 
+              hover_name="title")
+st.plotly_chart(fig)
+fig.show()
+
+
+# In[33]:
+
+
+fig = px.scatter(netflix_df, 
+                x="IMDB Score", 
+                y="Daily exchange rate difference",
+                color="Genre")
+st.plotly_chart(fig)
+fig.show()
+
+
+# In[30]:
+
+
+from turtle import color
+import plotly.graph_objects as go
+
+imdb_top20 = netflix_df.sort_values(['IMDB Score'], ascending=False)[0:20]
+
+labels = imdb_top20["Genre"]
+values = imdb_top20["IMDB Score"]
+colours = px.colors.sequential.Aggrnyl
+
+fig = go.Figure()
+fig.add_trace(go.Pie(labels=labels, 
+                     values=values, 
+                     pull=[0.2, 0, 0.3, 0],
+                     marker= {'colors' : colours}))
+fig.update_layout(title="Top 20 IMDB Scores distribution")
+st.plotly_chart(fig)
+fig.show()
+
+
+# In[34]:
+
+
+fig = px.bar(imdb_top20, 
+             x="IMDB Score",
+             y="title",
+             color="Genre",
+             title="Top 20 IMDB Scores")
+st.plotly_chart(fig)
+fig.show()
+
+
+# In[35]:
+
+
+rating_buttons = [{'label': "All", 'method': "update", 'args': [{"visible": [True, True, True, True, True, True, True, True, True, True]},{'title':'All'}]},
+             {'label': "TV-14", 'method': "update", 'args': [{"visible": [True, False, False, False, False, False, False, False, False, False]},{'title':'TV-14'}]},
+             {'label': "TV-MA", 'method': "update", 'args': [{"visible": [False, True, False, False, False, False, False, False, False, False]},{'title':'TV-MA'}]},
+             {'label': "TV-PG", 'method': "update", 'args': [{"visible": [False, False, True, False, False, False, False, False, False, False]},{'title':'TV-PG'}]},
+             {'label': "U", 'method': "update", 'args': [{"visible": [False, False, False, True, False, False, False, False, False, False]},{'title':'U'}]},
+             {'label': "TV-G", 'method': "update", 'args': [{"visible": [False, False, False, False, True, False, False, False, False, False]},{'title':'TV-G'}]},
+             {'label': "PG-13", 'method': "update", 'args': [{"visible": [False, False, False, False, False, True, False, False, False, False]},{'title':'PG-13'}]},
+             {'label': "R", 'method': "update", 'args': [{"visible": [False, False, False, False, False, False, True, False, False, False]},{'title':'R'}]},
+             {'label': "TV-Y", 'method': "update", 'args': [{"visible": [False, False, False, False, False, False, False, True, False, False]},{'title':'TV-Y'}]},
+             {'label': "TV-Y7", 'method': "update", 'args': [{"visible": [False, False, False, False, False, False, False, False, True, False]},{'title':'TV-Y7'}]},
+             {'label': "PG", 'method': "update", 'args': [{"visible": [False, False, False, False, False, False, False, False, False, True]},{'title':'PG'}]}]
+
+fig = px.scatter(data_frame=netflix_df, x='Date', y='IMDB Score', color='rating')
+fig.update_layout({'updatemenus':[{'type': 'dropdown','x': 1.3,'y': 1,'showactive': True,'active': 0,'buttons': rating_buttons}]})
+fig.update_xaxes(rangeslider_visible=True)
+st.plotly_chart(fig)
+fig.show()
 
 
 # In[ ]:
