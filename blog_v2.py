@@ -321,6 +321,28 @@ st.plotly_chart(fig)
 fig.show()
 
 
+# In[44]:
+
+
+code = '''import plotly.graph_objects as go
+
+imdb_top20 = netflix_df.sort_values(['IMDB Score'], ascending=False)[0:20]
+
+labels = imdb_top20["Genre"]
+values = imdb_top20["IMDB Score"]
+colours = px.colors.sequential.Aggrnyl
+
+fig = go.Figure()
+fig.add_trace(go.Pie(labels=labels, 
+                     values=values, 
+                     pull=[0.2, 0, 0.3, 0],
+                     marker= {'colors' : colours}))
+fig.update_layout(title="Top 20 IMDB Scores distribution")
+st.plotly_chart(fig)
+fig.show()'''
+st.code(code, language="python")
+
+
 # In[37]:
 
 
