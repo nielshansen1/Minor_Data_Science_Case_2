@@ -297,24 +297,26 @@ netflix_df["Daily exchange rate difference"] = netflix_df["Open"] - netflix_df["
 netflix_df.head()
 
 
-# In[31]:
+# In[40]:
 
 
 fig = px.line(netflix_df, 
               x="Date", 
               y="Daily exchange rate difference", 
               hover_name="title")
+fig.update_layout(title="Netflix'stock changes over time")
 st.plotly_chart(fig)
 fig.show()
 
 
-# In[33]:
+# In[41]:
 
 
 fig = px.scatter(netflix_df, 
                 x="IMDB Score", 
                 y="Daily exchange rate difference",
                 color="Genre")
+fig.update_layout(title="Netflix'stock changes over time")
 st.plotly_chart(fig)
 fig.show()
 
@@ -352,7 +354,7 @@ st.plotly_chart(fig)
 fig.show()
 
 
-# In[35]:
+# In[39]:
 
 
 rating_buttons = [{'label': "All", 'method': "update", 'args': [{"visible": [True, True, True, True, True, True, True, True, True, True]},{'title':'All'}]},
@@ -370,12 +372,7 @@ rating_buttons = [{'label': "All", 'method': "update", 'args': [{"visible": [Tru
 fig = px.scatter(data_frame=netflix_df, x='Date', y='IMDB Score', color='rating')
 fig.update_layout({'updatemenus':[{'type': 'dropdown','x': 1.3,'y': 1,'showactive': True,'active': 0,'buttons': rating_buttons}]})
 fig.update_xaxes(rangeslider_visible=True)
+fig.update_layout(title="Netflix Movies' PG-rating and their IMDB score ")
 st.plotly_chart(fig)
 fig.show()
-
-
-# In[ ]:
-
-
-
 
