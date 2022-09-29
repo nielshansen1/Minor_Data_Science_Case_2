@@ -269,6 +269,28 @@ st.text_area('inleiding',
             and stock prices, rating and IMDB score. ''', )
 
 
+# In[48]:
+
+
+st.text('''For our project we want to merge the following three datasets:
+
+            - Netflix Originals Movies with IMDB scores 
+
+            - General Netflix Series / Movies data  (From this we want 
+            to add the rating column to our Dataframe)
+
+            - Netflix Stockprices 
+
+            With the merged Dataframe we'll do extensive data analysis 
+            with help from Pandas for data manipulation and Plotly to make
+            interactive visualisations.
+            
+            Our goal is to discover if there is any corralation between
+            the different features in this dataset. Examples of this can
+            be corralation with movie releases and stock prices, IMDB scores
+            and stock prices, rating and IMDB score. ''')
+
+
 # In[22]:
 
 
