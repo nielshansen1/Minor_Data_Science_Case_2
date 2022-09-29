@@ -305,26 +305,26 @@ directory before we can proceed any futher.
 ''')
 
 
-# In[58]:
+# In[70]:
 
 
 code = '''# Import the Kaggle API from the Kaggle library
-          from kaggle.api.kaggle_api_extended import KaggleApi
+from kaggle.api.kaggle_api_extended import KaggleApi
             
-          # instantiate the API, then authenticate (uses the kaggle.json for login credentials)
-          api = KaggleApi()
-          api.authenticate()
-          print("Succesfully connected to the Kaggle API!")
+# instantiate the API, then authenticate (uses the kaggle.json for login credentials)
+api = KaggleApi()
+api.authenticate()
+print("Succesfully connected to the Kaggle API!")
           
-          # Use the Kaggle API to download the datasets we're using during the project
-          api.dataset_download_file("luiscorter/netflix-original-films-imdb-scores",
-          file_name="NetflixOriginals.csv")
+# Use the Kaggle API to download the datasets we're using during the project
+api.dataset_download_file("luiscorter/netflix-original-films-imdb-scores",
+file_name="NetflixOriginals.csv")
 
-          api.dataset_download_file("ariyoomotade/netflix-data-cleaning-analysis-and-visualization",
-          file_name="netflix1.csv")
+api.dataset_download_file("ariyoomotade/netflix-data-cleaning-analysis-and-visualization",
+file_name="netflix1.csv")
 
-          api.dataset_download_file("akpmpr/updated-netflix-stock-price-all-time",
-          file_name="netflix.csv")'''
+api.dataset_download_file("akpmpr/updated-netflix-stock-price-all-time",
+file_name="netflix.csv")'''
 st.code(code, language='python')
 
 
@@ -339,24 +339,107 @@ st.header('Dealing with encoded CSV files')
 
 st.text('''Before we can proceed with loading the CSV files with Pandas there is one more step
 we need to take. The CSV files are encoded, and we will use the chardet library to
-discover what type of encoding it is. After which we will use the encoding parameter
-of Pandas to properly load the CSV file.''')
+discover what type of encoding it is. After which we will use the encoding 
+parameter of Pandas to properly load the CSV file.''')
 
 
-# In[62]:
+# In[68]:
 
 
-code = '''  # Import the needed library
-            import chardet
+code = '''# Import the needed library
+import chardet
 
-            # Create a dict with file paths
-            files = {"NetflixOriginals.csv": "./data/NetflixOriginals.csv", "netflix.csv": "./data/netflix.csv", "netflix1.csv": "./data/netflix1.csv"}
+# Create a dict with file paths
+files = {"NetflixOriginals.csv": "./data/NetflixOriginals.csv", "netflix.csv": "./data/netflix.csv", "netflix1.csv": "./data/netflix1.csv"}
 
-            # Loop through the dict, and print out the names and encoding type 
-            for name, file in files.items():
-                with open(file, 'rb') as rawdata:
-                    result = chardet.detect(rawdata.read(100000))
-                print(name, result)'''
+# Loop through the dict, and print out the names and encoding type 
+for name, file in files.items():
+  with open(file, 'rb') as rawdata:
+        result = chardet.detect(rawdata.read(100000))
+  print(name, result)'''
+st.code(code, language = "python")
+
+
+# In[ ]:
+
+
+st.header('Loading in and Merging the Dataframes')
+
+
+# In[69]:
+
+
+st.text('''Now we can start loading the datasets into Pandas with the `read_csv` function,
+and we will use the `merge` function to join the dataframes together.
+
+- Note: It's only mandatory to use the encoding parameter for the Windows-1252 enconding, 
+because Pandas doesn't have problems with loading in the other encoding formats''')
+
+
+# In[71]:
+
+
+code = '''# Import Pandas
+import pandas as pd
+
+# Import the first dataset, and decode the csv file with Windows-1252 encoding
+df = pd.read_csv("./data/NetflixOriginals.csv", encoding="Windows-1252")
+
+# Change the column name of Premiere and set the format in DateTime to match the other dataset 
+df.rename(columns = {"Premiere": "Date"}, inplace=True)
+df.rename(columns = {"Title": "title"}, inplace=True)
+df["Date"] = pd.to_datetime(df["Date"])
+
+# Load in the second dataset
+df2 = pd.read_csv("./data/netflix1.csv")
+
+# Load in the third dataset
+df3 = pd.read_csv("./data/netflix.csv")
+
+df3["Date"] = pd.to_datetime(df3["Date"])'''
+st.code(code, language= "python")
+
+
+# In[72]:
+
+
+code = '''# Create a new dataframe by merging df, df2, df3 on shared column names and using the Left Join
+netflix_df = df.merge(df2[["title", "rating"]], on="title", how="left") \
+        .merge(df3, on="Date", how="left") 
+netflix_df.head()'''
+st.code(code, language = "python")
+
+
+# In[73]:
+
+
+st.text('''The Rating column and all the columns with Stock data have NaN values.We now have to 
+decide what we want to do with the those rows, there are two main options 
+for this: `pd.fillna` or `pd.dropna`. 
+
+Rating column
+For the Rating column we have decided to fill all NaN values with U for
+unknown, because 80 rows would be alot of data to discard.
+
+Stock data columns
+For the Stock data columns we've tried to apply the `pd.interpolate` 
+function, but it wasn't succesfull . We've decided to drop the rows in 
+question, because dropping 36 rows could be better justified''')
+
+
+# In[74]:
+
+
+code = '''# Sort all values in the Dataframe by date, to order the data first
+netflix_df.sort_values("Date", inplace=True)
+
+# Fill the NaN values of the rating column with U 
+netflix_df["rating"].fillna("U", inplace=True)
+
+# Drop all rows with NaN values
+netflix_df.dropna(inplace=True)'''
+
+st.code(code, language = "python")
 
 
 # In[57]:
