@@ -247,7 +247,7 @@ st.title("The effect of Netflix movie IMDB scores on Netflix' stock")
 # In[21]:
 
 
-st.header('Inleiding')
+st.header('Introduction')
 
 
 # In[22]:
