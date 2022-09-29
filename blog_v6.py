@@ -244,13 +244,13 @@ import streamlit as st
 st.title("The effect of Netflix movie IMDB scores on Netflix' stock")
 
 
-# In[49]:
+# In[21]:
 
 
 st.header('Inleiding')
 
 
-# In[48]:
+# In[22]:
 
 
 st.text('''For our project we want to merge the following three datasets:
@@ -272,13 +272,13 @@ st.text('''For our project we want to merge the following three datasets:
             and stock prices, rating and IMDB score. ''')
 
 
-# In[51]:
+# In[23]:
 
 
 st.header('Using the Kaggle API to download the datasets we want to use during our project')
 
 
-# In[50]:
+# In[24]:
 
 
 st.text('''The first step is to install the Kaggle library, and use it download the datasets.
@@ -288,7 +288,7 @@ st.text('''The first step is to install the Kaggle library, and use it download 
         ''')
 
 
-# In[55]:
+# In[25]:
 
 
 code = '''#install the Kaggle library 
@@ -296,7 +296,7 @@ code = '''#install the Kaggle library
 st.code(code, language="python")
 
 
-# In[63]:
+# In[26]:
 
 
 st.text('''Kaggle requires that the authentication key is present on our device 
@@ -305,7 +305,7 @@ directory before we can proceed any futher.
 ''')
 
 
-# In[70]:
+# In[27]:
 
 
 code = '''# Import the Kaggle API from the Kaggle library
@@ -328,13 +328,13 @@ file_name="netflix.csv")'''
 st.code(code, language='python')
 
 
-# In[59]:
+# In[28]:
 
 
 st.header('Dealing with encoded CSV files')
 
 
-# In[66]:
+# In[29]:
 
 
 st.text('''Before we can proceed with loading the CSV files with Pandas there is one more step
@@ -343,7 +343,7 @@ discover what type of encoding it is. After which we will use the encoding
 parameter of Pandas to properly load the CSV file.''')
 
 
-# In[68]:
+# In[30]:
 
 
 code = '''# Import the needed library
@@ -360,13 +360,13 @@ for name, file in files.items():
 st.code(code, language = "python")
 
 
-# In[ ]:
+# In[31]:
 
 
 st.header('Loading in and Merging the Dataframes')
 
 
-# In[69]:
+# In[32]:
 
 
 st.text('''Now we can start loading the datasets into Pandas with the `read_csv` function,
@@ -376,7 +376,7 @@ and we will use the `merge` function to join the dataframes together.
 because Pandas doesn't have problems with loading in the other encoding formats''')
 
 
-# In[71]:
+# In[33]:
 
 
 code = '''# Import Pandas
@@ -400,7 +400,7 @@ df3["Date"] = pd.to_datetime(df3["Date"])'''
 st.code(code, language= "python")
 
 
-# In[72]:
+# In[34]:
 
 
 code = '''# Create a new dataframe by merging df, df2, df3 on shared column names and using the Left Join
@@ -410,7 +410,7 @@ netflix_df.head()'''
 st.code(code, language = "python")
 
 
-# In[73]:
+# In[35]:
 
 
 st.text('''The Rating column and all the columns with Stock data have NaN values.We now have to 
@@ -427,7 +427,7 @@ function, but it wasn't succesfull . We've decided to drop the rows in
 question, because dropping 36 rows could be better justified''')
 
 
-# In[74]:
+# In[36]:
 
 
 code = '''# Sort all values in the Dataframe by date, to order the data first
@@ -442,7 +442,7 @@ netflix_df.dropna(inplace=True)'''
 st.code(code, language = "python")
 
 
-# In[26]:
+# In[37]:
 
 
 # Create a exchange rate difference column, to with the difference between the High and Low points of the day
@@ -455,32 +455,32 @@ imdb_top20 = netflix_df.sort_values(['IMDB Score'], ascending=False)[0:20]
 netflix_df.head()
 
 
-# In[57]:
+# In[38]:
 
 
 # Maak een streamlit dataframe zodat hij weergeven wordt op de app
 st_netflix_df = st.dataframe(netflix_df)
 
 
-# In[ ]:
+# In[39]:
 
 
 st.title('''Visualizing the data''')
 
 
-# In[ ]:
+# In[40]:
 
 
 st.header('''Genre distribution''')
 
 
-# In[ ]:
+# In[41]:
 
 
 st.text('''We First want to see the Genre distribution of our movie data. We're using a bar chart to visualize the amount of movies per Genre.''')
 
 
-# In[ ]:
+# In[42]:
 
 
 code = """import plotly.express as px
@@ -493,7 +493,7 @@ fig.show()"""
 st.code(code, language="python")
 
 
-# In[2]:
+# In[43]:
 
 
 import plotly.express as px
@@ -505,7 +505,7 @@ st.plotly_chart(fig)
 fig.show()
 
 
-# In[ ]:
+# In[44]:
 
 
 st.text('''
@@ -513,13 +513,13 @@ We notice in the visualisation that we have alot of data in three categories, an
 This means that our dataset probaly would have been better with more data distribution''')
 
 
-# In[ ]:
+# In[45]:
 
 
 st.header('''Daily Exchange rate progression over the years, and comparing it to the IMDB Scores''')
 
 
-# In[ ]:
+# In[46]:
 
 
 st.text('''
@@ -528,7 +528,7 @@ After which we want to compare the Daily Exchange rate to the IMDB Scores, where
  ''')
 
 
-# In[1]:
+# In[47]:
 
 
 code= """fig = px.line(netflix_df, 
@@ -543,7 +543,7 @@ fig.show()"""
 st.code(code, language="python")
 
 
-# In[40]:
+# In[48]:
 
 
 fig = px.line(netflix_df, 
@@ -563,12 +563,12 @@ fig.show()
 
 
 
-# In[ ]:
+# In[51]:
 
 
 code = """fig = px.scatter(netflix_df, 
                 x="IMDB Score", 
-                y="exchange rate difference",
+                y="Daily exchange rate difference",
                 color="Genre",
                 title="Daily Exchange Rate Difference by IMDB Score & Genre",
                 labels= {"exchange rate difference" : "Daily Exchange Rate Difference", "IMDB Score": "IMDB Score"})
@@ -578,12 +578,12 @@ fig.show()"""
 st.code(code, language="python")
 
 
-# In[41]:
+# In[52]:
 
 
 fig = px.scatter(netflix_df, 
                 x="IMDB Score", 
-                y="exchange rate difference",
+                y="Daily exchange rate difference",
                 color="Genre",
                 title="Daily Exchange Rate Difference by IMDB Score & Genre",
                 labels= {"exchange rate difference" : "Daily Exchange Rate Difference", "IMDB Score": "IMDB Score"})
@@ -592,7 +592,7 @@ st.plotly_chart(fig)
 fig.show()
 
 
-# In[ ]:
+# In[53]:
 
 
 st.text('''
@@ -601,13 +601,13 @@ the IMDB scores are accumulated over a period of time after the release of a mov
  ''')
 
 
-# In[ ]:
+# In[54]:
 
 
 st.header('''IMDB Scores by Genre''')
 
 
-# In[ ]:
+# In[55]:
 
 
 st.text('''
@@ -616,7 +616,7 @@ We'll use both a pie chart and bar graph to visualize this.
  ''')
 
 
-# In[44]:
+# In[56]:
 
 
 code = '''import plotly.graph_objects as go
@@ -638,7 +638,7 @@ fig.show()'''
 st.code(code, language="python")
 
 
-# In[37]:
+# In[57]:
 
 
 import plotly.graph_objects as go
@@ -658,7 +658,7 @@ st.plotly_chart(fig)
 fig.show()
 
 
-# In[ ]:
+# In[58]:
 
 
 code = """fig = px.bar(imdb_top20, 
@@ -672,7 +672,7 @@ fig.show()"""
 st.code(code, language="python")
 
 
-# In[34]:
+# In[59]:
 
 
 fig = px.bar(imdb_top20, 
@@ -685,7 +685,7 @@ fig.update_layout(width=1000, height=1000)
 fig.show()
 
 
-# In[ ]:
+# In[60]:
 
 
 st.text('''
@@ -694,13 +694,13 @@ This probaly has a connection with the data distribution of the dataset being to
  ''')
 
 
-# In[ ]:
+# In[61]:
 
 
 st.header('''IMDB Scores by PG-Rating''')
 
 
-# In[ ]:
+# In[62]:
 
 
 st.text('''
@@ -708,7 +708,7 @@ For our last visualisation we want to see how the IMDB Scores are distributed ov
  ''')
 
 
-# In[ ]:
+# In[63]:
 
 
 code = """rating_buttons = [{'label': "All", 'method': "update", 'args': [{"visible": [True, True, True, True, True, True, True, True, True, True]},{'title':'All'}]},
@@ -732,7 +732,7 @@ fig.show()"""
 st.code(code, language="python")
 
 
-# In[39]:
+# In[67]:
 
 
 rating_buttons = [{'label': "All", 'method': "update", 'args': [{"visible": [True, True, True, True, True, True, True, True, True, True]},{'title':'All'}]},
@@ -751,11 +751,12 @@ fig = px.scatter(data_frame=netflix_df, x='Date', y='IMDB Score', color='rating'
 fig.update_layout({'updatemenus':[{'type': 'dropdown','x': 1.3,'y': 1,'showactive': True,'active': 0,'buttons': rating_buttons}]})
 fig.update_xaxes(rangeslider_visible=True)
 fig.update_layout(title="Netflix Movies' PG-rating and their IMDB score ")
+fig.update_layout(width=1000, height=1000)
 st.plotly_chart(fig)
 fig.show()
 
 
-# In[ ]:
+# In[65]:
 
 
 st.text('''
@@ -763,7 +764,54 @@ In this visualisation we can see that PG-Rating has no corralation with the IMDB
  ''')
 
 
-# In[ ]:
+# In[71]:
+
+
+code = '''netflix_df['quarter'] = pd.PeriodIndex(netflix_df.Date, freq='Q')
+
+quarter_close_med = netflix_df.groupby('quarter')['Close'].median()
+quarter_imdb_med = netflix_df.groupby('quarter')['IMDB Score'].median()
+
+quarter = pd.concat([quarter_close_med, quarter_imdb_med], axis=1, join='inner')
+quarter['Percentage Change'] = quarter['Close'].pct_change() * 100
+quarter['Quarter'] = quarter.index.to_timestamp()
+
+fig = px.line(data_frame=quarter, x='Quarter', y='IMDB Score', 
+              labels={
+                     "Quarter": "Date",
+                     "IMDB Score": "Median IMDB Score",
+                     "species": "Species of Iris"
+                 },
+                title="Median IMDB Score of Netflix Originals through the years")
+st.plotly_chart(fig)
+fig.show()'''
+st.code(code, language='python')
+
+
+# In[70]:
+
+
+netflix_df['quarter'] = pd.PeriodIndex(netflix_df.Date, freq='Q')
+
+quarter_close_med = netflix_df.groupby('quarter')['Close'].median()
+quarter_imdb_med = netflix_df.groupby('quarter')['IMDB Score'].median()
+
+quarter = pd.concat([quarter_close_med, quarter_imdb_med], axis=1, join='inner')
+quarter['Percentage Change'] = quarter['Close'].pct_change() * 100
+quarter['Quarter'] = quarter.index.to_timestamp()
+
+fig = px.line(data_frame=quarter, x='Quarter', y='IMDB Score', 
+              labels={
+                     "Quarter": "Date",
+                     "IMDB Score": "Median IMDB Score",
+                     "species": "Species of Iris"
+                 },
+                title="Median IMDB Score of Netflix Originals through the years")
+st.plotly_chart(fig)
+fig.show()
+
+
+# In[69]:
 
 
 st.text('''
@@ -773,4 +821,10 @@ Main take aways:
 - The data distribution of the dataset was very poor
 - Having data about the amount of IMDB voters, or total Netflix subscribers could have provided more insights
  ''')
+
+
+# In[ ]:
+
+
+
 
