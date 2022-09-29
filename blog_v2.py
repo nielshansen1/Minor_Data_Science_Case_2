@@ -319,10 +319,9 @@ st.plotly_chart(fig)
 fig.show()
 
 
-# In[30]:
+# In[37]:
 
 
-from turtle import color
 import plotly.graph_objects as go
 
 imdb_top20 = netflix_df.sort_values(['IMDB Score'], ascending=False)[0:20]
