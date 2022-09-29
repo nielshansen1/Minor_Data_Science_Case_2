@@ -288,7 +288,74 @@ st.text('''The first step is to install the Kaggle library, and use it download 
         ''')
 
 
-# In[22]:
+# In[55]:
+
+
+code = '''#install the Kaggle library 
+          !pip install kaggle'''
+st.code(code, language="python")
+
+
+# In[60]:
+
+
+st.text('''Kaggle requires that the authentication key is present on our device ( using the following path:
+~/.kaggle/kaggle.json), so we'll have to make a directory before we can proceed any futher
+''')
+
+
+# In[58]:
+
+
+code = '''# Import the Kaggle API from the Kaggle library
+          from kaggle.api.kaggle_api_extended import KaggleApi
+            
+          # instantiate the API, then authenticate (uses the kaggle.json for login credentials)
+          api = KaggleApi()
+          api.authenticate()
+          print("Succesfully connected to the Kaggle API!")
+          
+          # Use the Kaggle API to download the datasets we're using during the project
+          api.dataset_download_file("luiscorter/netflix-original-films-imdb-scores",
+          file_name="NetflixOriginals.csv")
+
+          api.dataset_download_file("ariyoomotade/netflix-data-cleaning-analysis-and-visualization",
+          file_name="netflix1.csv")
+
+          api.dataset_download_file("akpmpr/updated-netflix-stock-price-all-time",
+          file_name="netflix.csv")'''
+st.code(code, language='python')
+
+
+# In[59]:
+
+
+st.header('Dealing with encoded CSV files')
+
+
+# In[61]:
+
+
+st.text("Before we can proceed with loading the CSV files with Pandas there is one more step we need to take. The CSV files are encoded, and we will use the chardet library to discover what type of encoding it is. After which we will use the encoding parameter of Pandas to properly load the CSV file.")
+
+
+# In[62]:
+
+
+code = '''  # Import the needed library
+            import chardet
+
+            # Create a dict with file paths
+            files = {"NetflixOriginals.csv": "./data/NetflixOriginals.csv", "netflix.csv": "./data/netflix.csv", "netflix1.csv": "./data/netflix1.csv"}
+
+            # Loop through the dict, and print out the names and encoding type 
+            for name, file in files.items():
+                with open(file, 'rb') as rawdata:
+                    result = chardet.detect(rawdata.read(100000))
+                print(name, result)'''
+
+
+# In[57]:
 
 
 # Maak een streamlit dataframe zodat hij weergeven wordt op de app
@@ -418,24 +485,6 @@ fig.update_xaxes(rangeslider_visible=True)
 fig.update_layout(title="Netflix Movies' PG-rating and their IMDB score ")
 st.plotly_chart(fig)
 fig.show()
-
-
-# In[54]:
-
-
-from st_aggrid import AgGrid, GridUpdateMode
-from st_aggrid.grid_options_builder import GridOptionsBuilder
-
-gd = GridOptionsBuilder.from_dataframe(netflix_df)
-gd.configure_selection(selection_mode='multiple', use_checkbox=True)
-gridoptions = gd.build()
-
-grid_table = AgGrid(netflix_df, height=250, gridOptions=gridoptions,
-                    update_mode=GridUpdateMode.SELECTION_CHANGED)
-
-st.write('## Selected')
-selected_row = grid_table["selected_rows"]
-st.dataframe(selected_row)
 
 
 # In[ ]:
