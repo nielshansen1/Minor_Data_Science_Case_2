@@ -245,10 +245,11 @@ import streamlit as st
 st.title("The effect of Netflix movie IMDB scores on Netflix' stock")
 
 
-# In[21]:
+# In[47]:
 
 
-st.text_area("Inleiding",
+st.text_area('inleiding',
+             
             '''For our project we want to merge the following three datasets:
 
             - Netflix Originals Movies with IMDB scores 
@@ -261,6 +262,7 @@ st.text_area("Inleiding",
             With the merged Dataframe we'll do extensive data analysis 
             with help from Pandas for data manipulation and Plotly to make
             interactive visualisations.
+            
             Our goal is to discover if there is any corralation between
             the different features in this dataset. Examples of this can
             be corralation with movie releases and stock prices, IMDB scores
