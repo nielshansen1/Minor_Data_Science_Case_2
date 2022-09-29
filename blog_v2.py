@@ -245,28 +245,10 @@ import streamlit as st
 st.title("The effect of Netflix movie IMDB scores on Netflix' stock")
 
 
-# In[47]:
+# In[49]:
 
 
-st.text_area('inleiding',
-             
-            '''For our project we want to merge the following three datasets:
-
-            - Netflix Originals Movies with IMDB scores 
-
-            - General Netflix Series / Movies data  (From this we want 
-            to add the rating column to our Dataframe)
-
-            - Netflix Stockprices 
-
-            With the merged Dataframe we'll do extensive data analysis 
-            with help from Pandas for data manipulation and Plotly to make
-            interactive visualisations.
-            
-            Our goal is to discover if there is any corralation between
-            the different features in this dataset. Examples of this can
-            be corralation with movie releases and stock prices, IMDB scores
-            and stock prices, rating and IMDB score. ''', )
+st.header('Inleiding')
 
 
 # In[48]:
@@ -289,6 +271,22 @@ st.text('''For our project we want to merge the following three datasets:
             the different features in this dataset. Examples of this can
             be corralation with movie releases and stock prices, IMDB scores
             and stock prices, rating and IMDB score. ''')
+
+
+# In[51]:
+
+
+st.header('Using the Kaggle API to download the datasets we want to use during our project')
+
+
+# In[50]:
+
+
+st.text('''The first step is to install the Kaggle library, and use it download the datasets.
+
+            - Documentation link: https://www.kaggle.com/docs/api
+            - Code source: https://www.youtube.com/watch?v=DgGFhQmfxHo&t=331s
+        ''')
 
 
 # In[22]:
@@ -421,4 +419,30 @@ fig.update_xaxes(rangeslider_visible=True)
 fig.update_layout(title="Netflix Movies' PG-rating and their IMDB score ")
 st.plotly_chart(fig)
 fig.show()
+
+
+# In[54]:
+
+
+#!pip install streamlit-aggrid
+
+from st_aggrid import AgGrid, GridUpdateMode
+from st_aggrid.grid_options_builder import GridOptionsBuilder
+
+gd = GridOptionsBuilder.from_dataframe(netflix_df)
+gd.configure_selection(selection_mode='multiple', use_checkbox=True)
+gridoptions = gd.build()
+
+grid_table = AgGrid(netflix_df, height=250, gridOptions=gridoptions,
+                    update_mode=GridUpdateMode.SELECTION_CHANGED)
+
+st.write('## Selected')
+selected_row = grid_table["selected_rows"]
+st.dataframe(selected_row)
+
+
+# In[ ]:
+
+
+
 
