@@ -477,7 +477,8 @@ st.header('''Genre distribution''')
 # In[41]:
 
 
-st.text('''We First want to see the Genre distribution of our movie data. We're using a bar chart to visualize the amount of movies per Genre.''')
+st.text('''We First want to see the Genre distribution of our movie data. We're using a bar
+chart to visualize the amount of movies per Genre.''')
 
 
 # In[42]:
@@ -509,8 +510,9 @@ fig.show()
 
 
 st.text('''
-We notice in the visualisation that we have alot of data in three categories, and that the other categories have almost no data.
-This means that our dataset probaly would have been better with more data distribution''')
+We notice in the visualisation that we have alot of data in three categories, and 
+that the other categories have almost no data. This means that our dataset probably
+would have been better with more data distribution''')
 
 
 # In[45]:
@@ -523,8 +525,9 @@ st.header('''Daily Exchange rate progression over the years, and comparing it to
 
 
 st.text('''
-Now we want to look what the Daily Exchange rate is over the years, we'll be using a line diagram to visualize this.
-After which we want to compare the Daily Exchange rate to the IMDB Scores, where we'll use a scatter plot. 
+Now we want to look what the Daily Exchange rate is over the years, we'll be using a
+line diagram to visualize this. After which we want to compare the Daily Exchange 
+rate to the IMDB Scores, where we'll use a scatter plot. 
  ''')
 
 
@@ -596,8 +599,10 @@ fig.show()
 
 
 st.text('''
-We noticed from the last graph that the IMDB Scores have no correlation to the stock prices of that day.
-the IMDB scores are accumulated over a period of time after the release of a movie, and don't give a good overview of the sentiment up to the release itself.
+We noticed from the last graph that the IMDB Scores have no correlation to the stock
+prices of that day. The IMDB scores are accumulated over a period of time after the
+release of a movie, and don't give a good overview of the sentiment up to the 
+release itself.
  ''')
 
 
@@ -611,8 +616,9 @@ st.header('''IMDB Scores by Genre''')
 
 
 st.text('''
-Now we want to visualize how the top 20 IMDB scores are distributed over the Genres, for which we make a Dataframe with the relevant data.
-We'll use both a pie chart and bar graph to visualize this.
+Now we want to visualize how the top 20 IMDB scores are distributed over the Genres,
+for which we make a Dataframe with the relevant data. We'll use both a pie chart and
+bar graph to visualize this.
  ''')
 
 
@@ -685,12 +691,13 @@ fig.update_layout(width=1000, height=1000)
 fig.show()
 
 
-# In[60]:
+# In[72]:
 
 
 st.text('''
-In the visualizations we see that most of the best scores are concentrated in Documentary, which also has the most rows in the data.
-This probaly has a connection with the data distribution of the dataset being to small.
+In the visualizations we see that most of the best scores are concentrated in
+Documentary, which also has the most rows in the data. This probably has a 
+connection with the data distribution of the dataset being to small.
  ''')
 
 
@@ -704,7 +711,8 @@ st.header('''IMDB Scores by PG-Rating''')
 
 
 st.text('''
-For our last visualisation we want to see how the IMDB Scores are distributed over the different PG-Ratings, for which we'll use a scatter plot.
+For our last visualisation we want to see how the IMDB Scores are distributed over
+the different PG-Ratings, for which we'll use a scatter plot.
  ''')
 
 
@@ -760,7 +768,8 @@ fig.show()
 
 
 st.text('''
-In this visualisation we can see that PG-Rating has no corralation with the IMDB rating, because the different rating groups are spread out around the plot.
+In this visualisation we can see that PG-Rating has no corralation with the IMDB 
+rating, because the different rating groups are spread out around the plot.
  ''')
 
 
@@ -811,15 +820,27 @@ st.plotly_chart(fig)
 fig.show()
 
 
+# In[ ]:
+
+
+st.text('''This plot shows the median of the IMDB scores each quarter. It seems like
+is a downward trend of the IMDB scores of the Netflix movies.''')
+
+
+# In[ ]:
+
+
+st.header("Main takeaways")
+
+
 # In[69]:
 
 
 st.text('''
-Main take aways:
-
 - The stock data wasen't suitable to combine with the movie data with IMDB scores 
 - The data distribution of the dataset was very poor
-- Having data about the amount of IMDB voters, or total Netflix subscribers could have provided more insights
+- Having data about the amount of IMDB voters, or total Netflix subscribers could
+have provided more insights
  ''')
 
 
